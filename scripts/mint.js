@@ -6,10 +6,21 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 const { expect } = require("chai");
+const fs = require("fs");
 
+async function loadAddrs() {
+    const lines = fs.readFileSync('./scripts/bsc0921.txt').toString().split('\n')
+    const addrs = []
+    for (const line of lines) {
+        const addr = hre.ethers.getAddress(line)
+        console.log(addr, line)
+        addrs.push(addr)
+    }
+    return addrs
+}
 
 async function main() {
-    const address = '0xec7DADc6d571fb26db2E2E11A31cec8F5E23EE1b';
+    const address = '0xa2315a9d91dA9D572d14030A2252C5cf204f4330';
     const nft = await hre.ethers.getContractAt("GlacierNFT", address);
     const name = "Glacier Catalyst NFT";
     const symbol = "GLC";
@@ -21,25 +32,26 @@ async function main() {
 
     let tokenId = 1;
     let participants = [];
-    let total = 100;
 
-    for (i = 0; i < total; i++) {
-        let randomWallet = ethers.Wallet.createRandom();
-        participants.push({
-            collector: randomWallet.address,
+    let addrs = await loadAddrs()
+    
+    for (i = 0; i < addrs.length; i++) {
+        const p = {
+            collector: addrs[i],
             tokenId: tokenId++,
-        });
+        }
+        participants.push(p);
+        console.log(p.collector, p.tokenId)
     }
 
     //  Gas used:            5140107 of 30000000
     console.log(await nft.mintBatchCollectionNFT(participants))
 
-    for (i = 0; i < total; i++) {
-        let p = participants[i];
-        console.log(p.collector, p.tokenId)
-        expect(await nft.balanceOf(p.collector)).to.equal(1);
-        expect(await nft.ownerOf(i + 1)).to.equal(p.collector);
-    }
+    // for (i = 0; i < addrs.length; i++) {
+    //     let p = participants[i];
+    //     console.log(p.collector, p.tokenId)
+    //     expect(await nft.balanceOf(p.collector)).to.equal(1);
+    // }
 }
 
 // We recommend this pattern to be able to use async/await everywhere

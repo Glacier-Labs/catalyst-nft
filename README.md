@@ -19,4 +19,7 @@ An NFT721 Contract for Glacier Catalyst!
 1. `npx hardhat run scripts/mint.js --network opbnbtestnet`
 
 
+https://bscscan.com/address/0xa2315a9d91dA9D572d14030A2252C5cf204f4330
+https://testnet.bscscan.com/address/0xf10b40ce6c9071fa89649d4e1a87f07660eef79f
+
 
