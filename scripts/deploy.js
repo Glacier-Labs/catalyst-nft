@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
   const name = "Glacier Catalyst NFT";
-  const symbol = "GLC";
+  const symbol = "GLS";
 
   //   Gas used:            2468621 of 30000000
   const nft = await hre.ethers.deployContract("GlacierNFT", [name, symbol]);

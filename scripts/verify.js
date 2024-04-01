@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
     const name = "Glacier Catalyst NFT";
-    const symbol = "GLC";
+    const symbol = "GLS";
 
     await hre.run("verify:verify", {
         address: process.env.CONTRACT_ADDRESS,

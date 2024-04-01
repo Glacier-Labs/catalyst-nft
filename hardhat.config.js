@@ -5,6 +5,8 @@ require("@nomicfoundation/hardhat-verify");
 OPBNB_PRIVATE_KEY = process.env.OPBNB_PRIVATE_KEY
 NODEREAL_API_KEY = process.env.NODEREAL_API_KEY
 BSCMAINNET_PRIVATE_KEY = process.env.BSCMAINNET_PRIVATE_KEY
+LOCALHOST_PRIVATE_KEY = process.env.LOCALHOST_PRIVATE_KEY
+MINT_SEPOLIA_PRIVATE_KEY = process.env.OPBNB_PRIVATE_KEY
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -20,10 +22,21 @@ module.exports = {
       chainId: 97,
       accounts: [OPBNB_PRIVATE_KEY]
     },
-    bscmainnet: {
-      url: `https://bsc-mainnet.nodereal.io/v1/${NODEREAL_API_KEY}`,
-      chainId: 56,
-      accounts: [BSCMAINNET_PRIVATE_KEY]
+    // bscmainnet: {
+    //   url: `https://bsc-mainnet.nodereal.io/v1/${NODEREAL_API_KEY}`,
+    //   chainId: 56,
+    //   accounts: [BSCMAINNET_PRIVATE_KEY]
+    // },
+    // for Sepolia testnet
+    "mint-sepolia": {
+      url: "https://testnet-rpc.mintchain.io",
+      accounts: [MINT_SEPOLIA_PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+    localhost: {
+      url: `http://127.0.0.1:8555`,
+      chainId: 901,
+      accounts: [LOCALHOST_PRIVATE_KEY]
     }
   },
   etherscan: {
@@ -48,6 +61,14 @@ module.exports = {
         browserURL: "https://opbnbscan.com/",
       },
      },
+     {
+      network: "mint-sepolia",
+      chainId: 1686,
+      urls: {
+        apiURL: `https://mint-testnet-public.explorer.caldera.xyz/api/`,
+        browserURL: `https://testnet-explorer.mintchain.io/`
+      }
+     }
    ],
    },
 };

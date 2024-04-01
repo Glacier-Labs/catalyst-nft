@@ -20,7 +20,7 @@ async function loadAddrs() {
 }
 
 async function main() {
-    const address = '0xa2315a9d91dA9D572d14030A2252C5cf204f4330';
+    const address = '0xb19b36b1456E65E3A6D514D3F715f204BD59f431';
     const nft = await hre.ethers.getContractAt("GlacierNFT", address);
     const name = "Glacier Catalyst NFT";
     const symbol = "GLC";
